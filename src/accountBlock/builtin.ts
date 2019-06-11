@@ -1,8 +1,8 @@
 const BigNumber = require('bn.js');
 import { paramsMissing, paramsConflict } from '~@vite/vitejs-error';
 import { Vite_TokenId, Default_Hash, Delegate_Gid, BlockType } from '~@vite/vitejs-constant';
-import { isValidHexAddr } from '~@vite/vitejs-privtoaddr';
-import { checkParams, validInteger, isArray, isObject } from '~@vite/vitejs-utils';
+import { isHexAddr } from '~@vite/vitejs-privtoaddr';
+import { checkParams, isInteger, isArray, isObject } from '~@vite/vitejs-utils';
 import { encodeParameters } from '~@vite/vitejs-abi';
 
 import { SignBlock, formatBlock } from './type';
@@ -46,17 +46,17 @@ export function formatAccountBlock({ blockType, fromBlockHash, accountAddress, m
 export function validReqAccountBlock({ blockType, fromBlockHash, accountAddress, message, data, toAddress, amount }: formatBlock) {
     const err = checkParams({ blockType, accountAddress, toAddress, amount }, [ 'accountAddress', 'blockType' ], [ {
         name: 'accountAddress',
-        func: isValidHexAddr
+        func: isHexAddr
     }, {
         name: 'toAddress',
-        func: isValidHexAddr
+        func: isHexAddr
     }, {
         name: 'blockType',
         func: _b => BlockType[_b],
         msg: `Don\'t have blockType ${ blockType }`
     }, {
         name: 'amount',
-        func: validInteger,
+        func: isInteger,
         msg: 'Amount must be an integer string.'
     } ]);
 

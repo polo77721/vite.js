@@ -1,4 +1,4 @@
-import { newAddr, getId, validateMnemonic, getEntropyFromMnemonic, getAddrsFromMnemonic, isValidHexAddr, getAddrFromMnemonic } from '~@vite/vitejs-hdaddr';
+import { newAddr, getId, validateMnemonic, getEntropyFromMnemonic, getAddrsFromMnemonic, isHexAddr, getAddrFromMnemonic } from '~@vite/vitejs-hdaddr';
 import Account from '~@vite/vitejs-account';
 import client from '~@vite/vitejs-client';
 import { paramsMissing, addressIllegal, addressMissing } from '~@vite/vitejs-error';
@@ -170,7 +170,7 @@ class HdAccountClass {
             throw new Error(`${ paramsMissing.message } Address or index.`);
         }
 
-        if (address && !isValidHexAddr(address)) {
+        if (address && !isHexAddr(address)) {
             throw new Error(`${ addressIllegal.message }`);
         }
 

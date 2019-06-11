@@ -2,13 +2,13 @@ import { methods as _methods } from '~@vite/vitejs-constant';
 import netProcessor from '~@vite/vitejs-netprocessor';
 
 import { checkParams } from '~@vite/vitejs-utils';
-import { isValidHexAddr } from '~@vite/vitejs-privtoaddr';
-import { getBuiltinTxType, signAccountBlock } from '~@vite/vitejs-accountblock';
+import { isHexAddr } from '~@vite/vitejs-privtoaddr';
+import { getTxType, signAccountBlock } from '~@vite/vitejs-accountblock';
 import { validReqAccountBlock, getAbi } from '~@vite/vitejs-accountblock/builtin';
 import { encodeFunctionCall, decodeParameters } from '~@vite/vitejs-abi';
 
 import TxBlock from './txBlock';
-import { Address, testapiFunc, RPCrequest, BuiltinTxType, subscribeFunc, walletFunc, netFunc, onroadFunc, contractFunc, pledgeFunc, registerFunc, voteFunc, mintageFunc, ledgerFunc, txFunc, powFunc } from './type';
+import { Address, testapiFunc, RPCrequest, TxType, subscribeFunc, walletFunc, netFunc, onroadFunc, contractFunc, pledgeFunc, registerFunc, voteFunc, mintageFunc, ledgerFunc, txFunc, powFunc } from './type';
 
 const { onroad } = _methods;
 const _ledger = _methods.ledger;
@@ -16,6 +16,7 @@ const _ledger = _methods.ledger;
 
 class ClientClass extends netProcessor {
     builtinTxBlock: TxBlock
+    getBlock: TxBlock
 
     wallet: walletFunc
     net: netFunc
@@ -34,7 +35,8 @@ class ClientClass extends netProcessor {
     constructor(provider: any, firstConnect: Function) {
         super(provider, firstConnect);
 
-        this.builtinTxBlock = new TxBlock(this);
+        this.getBlock = new TxBlock(this);
+        this.builtinTxBlock = this.getBlock;
         this._setMethodsName();
     }
 
@@ -52,7 +54,7 @@ class ClientClass extends netProcessor {
     async getBalance(addr: Address) {
         const err = checkParams({ addr }, ['addr'], [{
             name: 'addr',
-            func: isValidHexAddr
+            func: isHexAddr
         }]);
         if (err) {
             return Promise.reject(err);
@@ -81,7 +83,7 @@ class ClientClass extends netProcessor {
     }) {
         const err = checkParams({ addr, index }, [ 'addr', 'index' ], [{
             name: 'addr',
-            func: isValidHexAddr
+            func: isHexAddr
         }]);
         if (err) {
             return Promise.reject(err);
@@ -117,8 +119,8 @@ class ClientClass extends netProcessor {
 
         const list: any[] = [];
         rawList.forEach((item: any) => {
-            const txType = getBuiltinTxType(item);
-            item.txType = BuiltinTxType[txType];
+            const txType = getTxType(item);
+            item.txType = TxType[txType];
             list.push(item);
         });
 
@@ -155,7 +157,7 @@ class ClientClass extends netProcessor {
             throw err;
         }
 
-        const powTx = await this.builtinTxBlock.autoPow(accountBlock, usePledgeQuota);
+        const powTx = await this.getBlock.autoPow(accountBlock, usePledgeQuota);
         return this.sendTx(powTx.accountBlock, privateKey);
     }
 

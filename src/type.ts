@@ -6,7 +6,7 @@ export declare type Int64 = number;
 export declare type Uint64 = string;
 export declare type BigInt = string;
 
-export enum BuiltinTxType {
+export enum TxType {
     'SBPreg' = 0,
     'UpdateReg',
     'RevokeReg',

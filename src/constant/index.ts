@@ -57,7 +57,7 @@ export enum BlockType {
     'GenesisReceive'
 }
 
-export enum BuiltinTxType {
+export enum TxType {
     'SBPreg' = 0,
     'UpdateReg',
     'RevokeReg',

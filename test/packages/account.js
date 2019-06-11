@@ -54,7 +54,7 @@ describe('New Account without privateKey', function () {
 });
 
 function testFunctions(myAccount) {
-    for (let key in myHTTPClient.builtinTxBlock) {
+    for (let key in myHTTPClient.getBlock) {
         if (key === '_client' || key.endsWith('Block')) {
             continue;
         }

@@ -88,11 +88,11 @@ export function getTokenIdFromRaw(rawTokenId: string) {
     return `tti_${ rawTokenId }${ checkSum }`;
 }
 
-export function validNodeName(nodeName) {
+export function isNodeName(nodeName) {
     return /^[a-zA-Z0-9_\.]+(\s{1}[a-zA-Z0-9_\.]+)*$/g.test(nodeName) && nodeName.length <= 40;
 }
 
-export function validInteger(num) {
+export function isInteger(num) {
     return num && (/(^[1-9]\d*$)/g.test(num) || num === '0');
 }
 

@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-import { getAccountBlock, getSendTxBlock, getReceiveTxBlock, getBuiltinTxType, signAccountBlock, getBlockHash } from '../../src/accountBlock/index';
+import { getAccountBlock, getSendTxBlock, getReceiveTxBlock, getTxType, signAccountBlock, getBlockHash } from '../../src/accountBlock/index';
 import { getCreateContractData, getAbi } from '../../src/accountBlock/builtin';
 
 import { BlockType } from '../../src/type';
@@ -94,14 +94,14 @@ describe('getReceiveTxBlock', function () {
     });
 });
 
-describe('getBuiltinTxType', function () {
+describe('getTxType', function () {
     it('SBPreg', function () {
         const SBPreg = {
             blockType: 2,
             data: '8pxs4gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAABPx+OIw8v+h4DDmZOUlAz/5ldbCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMQ1NfVEVTVF9OT0RFAAAAAAAAAAAAAAAAAAAAAAAAAAA=',
             toAddress: 'vite_0000000000000000000000000000000000000004d28108e76b'
         };
-        assert.equal(getBuiltinTxType(SBPreg), 'SBPreg');
+        assert.equal(getTxType(SBPreg), 'SBPreg');
     });
     it('UpdateReg', function () {
         const UpdateReg = {
@@ -109,7 +109,7 @@ describe('getBuiltinTxType', function () {
             data: 'O3vfdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAO5nE1iOcnqWSo9HQOJ92+alKJz2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMQ1NfVEVTVF9OT0RFAAAAAAAAAAAAAAAAAAAAAAAAAAA=',
             toAddress: 'vite_0000000000000000000000000000000000000004d28108e76b'
         };
-        assert.equal(getBuiltinTxType(UpdateReg), 'UpdateReg');
+        assert.equal(getTxType(UpdateReg), 'UpdateReg');
     });
     it('RevokeReg', function () {
         const RevokeReg = {
@@ -117,7 +117,7 @@ describe('getBuiltinTxType', function () {
             data: 'YIYv4gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADENTX1RFU1RfTk9ERQAAAAAAAAAAAAAAAAAAAAAAAAAA',
             toAddress: 'vite_0000000000000000000000000000000000000004d28108e76b'
         };
-        assert.equal(getBuiltinTxType(RevokeReg), 'RevokeReg');
+        assert.equal(getTxType(RevokeReg), 'RevokeReg');
     });
     // RetrieveReward
     it('Voting', function () {
@@ -126,7 +126,7 @@ describe('getBuiltinTxType', function () {
             data: '/cF/JQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADENTX1RFU1RfTk9ERQAAAAAAAAAAAAAAAAAAAAAAAAAA',
             toAddress: 'vite_0000000000000000000000000000000000000004d28108e76b'
         };
-        assert.equal(getBuiltinTxType(Voting), 'Voting');
+        assert.equal(getTxType(Voting), 'Voting');
     });
     it('RevokeVoting', function () {
         const RevokeVoting = {
@@ -134,7 +134,7 @@ describe('getBuiltinTxType', function () {
             data: 'pinFMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB',
             toAddress: 'vite_0000000000000000000000000000000000000004d28108e76b'
         };
-        assert.equal(getBuiltinTxType(RevokeVoting), 'RevokeVoting');
+        assert.equal(getTxType(RevokeVoting), 'RevokeVoting');
     });
     it('GetQuota', function () {
         const GetQuota = {
@@ -142,7 +142,7 @@ describe('getBuiltinTxType', function () {
             data: 'jefc/QAAAAAAAAAAAAAAE/H44jDy/6HgMOZk5SUDP/mV1sIA',
             toAddress: 'vite_0000000000000000000000000000000000000003f6af7459b9'
         };
-        assert.equal(getBuiltinTxType(GetQuota), 'GetQuota');
+        assert.equal(getTxType(GetQuota), 'GetQuota');
     });
     it('WithdrawalOfQuota', function () {
         const WithdrawalOfQuota = {
@@ -150,7 +150,7 @@ describe('getBuiltinTxType', function () {
             data: 'n/nHtgAAAAAAAAAAAAAAE/H44jDy/6HgMOZk5SUDP/mV1sIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIeGeDJurJAAAA=',
             toAddress: 'vite_0000000000000000000000000000000000000003f6af7459b9'
         };
-        assert.equal(getBuiltinTxType(WithdrawalOfQuota), 'WithdrawalOfQuota');
+        assert.equal(getTxType(WithdrawalOfQuota), 'WithdrawalOfQuota');
     });
     // it('Mintage', function () {
     //     const Mintage = {
@@ -158,7 +158,7 @@ describe('getBuiltinTxType', function () {
     //         data: 'J62HLgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACyRFUj9g6iwVfcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPQkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABHNzc3MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==',
     //         toAddress: 'vite_00000000000000000000000000000000000000056ad6d26692'
     //     };
-    //     assert.equal(getBuiltinTxType(Mintage), 'Mintage');
+    //     assert.equal(getTxType(Mintage), 'Mintage');
     // });
     // MintageIssue
     // MintageBurn
@@ -171,7 +171,7 @@ describe('getBuiltinTxType', function () {
     //         data: 'QnapywAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMJpWDkEPPlm83AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVklURSBUT0tFTgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABTl1L8Zdh6mfYIzQeegkraivGtApAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACMTUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=',
     //         toAddress: 'vite_0000000000000000000000000000000000000006e82b8ba657'
     //     };
-    //     assert.equal(getBuiltinTxType(DexFundNewOrder), 'DexFundNewOrder');
+    //     assert.equal(getTxType(DexFundNewOrder), 'DexFundNewOrder');
     // });
     it('DexTradeCancelOrder', function () {
         const DexTradeCancelOrder = {
@@ -179,7 +179,7 @@ describe('getBuiltinTxType', function () {
             data: 'slGtxQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABYAAAIBAAAAAAoAAAAAAABdIFhSAAAOAAAAAAAAAAAAAA==',
             toAddress: 'vite_00000000000000000000000000000000000000079710f19dc7'
         };
-        assert.equal(getBuiltinTxType(DexTradeCancelOrder), 'DexTradeCancelOrder');
+        assert.equal(getTxType(DexTradeCancelOrder), 'DexTradeCancelOrder');
     });
     it('DexFundUserWithdraw', function () {
         const DexFundUserWithdraw = {
@@ -187,7 +187,7 @@ describe('getBuiltinTxType', function () {
             data: 'zDKRaQAAAAAAAAAAAAAAAAAAAAAAAAAAAABWSVRFIFRPS0VOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfOZsUOKEAAA=',
             toAddress: 'vite_0000000000000000000000000000000000000006e82b8ba657'
         };
-        assert.equal(getBuiltinTxType(DexFundUserWithdraw), 'DexFundUserWithdraw');
+        assert.equal(getTxType(DexFundUserWithdraw), 'DexFundUserWithdraw');
     });
     it('DexFundUserDeposit', function () {
         const DexFundUserDeposit = {
@@ -195,7 +195,7 @@ describe('getBuiltinTxType', function () {
             data: 'nftn/w==',
             toAddress: 'vite_0000000000000000000000000000000000000006e82b8ba657'
         };
-        assert.equal(getBuiltinTxType(DexFundUserDeposit), 'DexFundUserDeposit');
+        assert.equal(getTxType(DexFundUserDeposit), 'DexFundUserDeposit');
     });
     it('DexFundNewMarket', function () {
         const DexFundNewMarket = {
@@ -203,7 +203,7 @@ describe('getBuiltinTxType', function () {
             data: 'Kuf4wQAAAAAAAAAAAAAAAAAAAAAAAAAAAAC29wGYeP37IZCKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFZJVEUgVE9LRU4=',
             toAddress: 'vite_0000000000000000000000000000000000000006e82b8ba657'
         };
-        assert.equal(getBuiltinTxType(DexFundNewMarket), 'DexFundNewMarket');
+        assert.equal(getTxType(DexFundNewMarket), 'DexFundNewMarket');
     });
     it('CreateContractReq', function () {
         const CreateContractReq = {
@@ -211,7 +211,7 @@ describe('getBuiltinTxType', function () {
             data: '',
             toAddress: 'vite_4f18fea624550533edcda473ae2dbdb6bf7e41d6016e260ab2'
         };
-        assert.equal(getBuiltinTxType(CreateContractReq), 'CreateContractReq');
+        assert.equal(getTxType(CreateContractReq), 'CreateContractReq');
     });
     it('TxReq', function () {
         const TxReq = {
@@ -219,7 +219,7 @@ describe('getBuiltinTxType', function () {
             data: null,
             toAddress: 'vite_155e4e83fb0499dcc3047e0458bbfae77f2ac1270e38c176f8'
         };
-        assert.equal(getBuiltinTxType(TxReq), 'TxReq');
+        assert.equal(getTxType(TxReq), 'TxReq');
     });
     it('RewardReq', function () {
         const RewardReq = {
@@ -227,7 +227,7 @@ describe('getBuiltinTxType', function () {
             data: '',
             toAddress: 'vite_0000000000000000000000000000000000000001c9e9f25417'
         };
-        assert.equal(getBuiltinTxType(RewardReq), 'RewardReq');
+        assert.equal(getTxType(RewardReq), 'RewardReq');
     });
     it('TxRes', function () {
         const TxRes = {
@@ -235,7 +235,7 @@ describe('getBuiltinTxType', function () {
             data: 'MjEyMw==',
             toAddress: 'vite_155e4e83fb0499dcc3047e0458bbfae77f2ac1270e38c176f8'
         };
-        assert.equal(getBuiltinTxType(TxRes), 'TxRes');
+        assert.equal(getTxType(TxRes), 'TxRes');
     });
     it('TxResFail', function () {
         const TxResFail = {
@@ -243,7 +243,7 @@ describe('getBuiltinTxType', function () {
             data: '',
             toAddress: 'vite_0000000000000000000000000000000000000001c9e9f25417'
         };
-        assert.equal(getBuiltinTxType(TxResFail), 'TxResFail');
+        assert.equal(getTxType(TxResFail), 'TxResFail');
     });
     // SendRefund
     it('GenesisReceive', function () {
@@ -275,7 +275,7 @@ describe('getBuiltinTxType', function () {
             tokenId: 'tti_000000000000000000004cfd',
             tokenInfo: null
         };
-        assert.equal(getBuiltinTxType(GenesisReceive), 'GenesisReceive');
+        assert.equal(getTxType(GenesisReceive), 'GenesisReceive');
     });
 });
 

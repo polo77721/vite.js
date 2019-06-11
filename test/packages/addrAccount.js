@@ -28,7 +28,7 @@ describe('New AddrAccount: property', function () {
 });
 
 describe('New AddrAccount: function', function () {
-    for (const key in myHTTPClient.builtinTxBlock) {
+    for (const key in myHTTPClient.getBlock) {
         if (key === '_client') {
             continue;
         }

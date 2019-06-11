@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-import { newHexAddr, isValidHexAddr, getAddrFromHexAddr, getHexAddrFromAddr, newHexAddrFromPub } from '../../src/privToAddr/index';
+import { newHexAddr, isHexAddr, getAddrFromHexAddr, getHexAddrFromAddr, newHexAddrFromPubKey } from '../../src/privToAddr/index';
 
 const privKey = 'afa2a3ab3347b5bbe210dc099b2e010e5491d698e5112db6bc278cfd8fa27eb9f0fde0110193147e7961e61eeb22576c535b3442fd6bd9c457775e0cc69f1951';
 
@@ -28,37 +28,37 @@ describe('newHexAddr', function () {
     });
 });
 
-describe('isValidHexAddr', function () {
+describe('isHexAddr', function () {
     it('newHexAddr addr', function () {
-        assert.equal(isValidHexAddr(addr.hexAddr), 1);
+        assert.equal(isHexAddr(addr.hexAddr), 1);
     });
 
     it('newHexAddr addrContract', function () {
-        assert.equal(isValidHexAddr(addrContract.hexAddr), 2);
+        assert.equal(isHexAddr(addrContract.hexAddr), 2);
     });
 
     it('newHexAddr addrPriv', function () {
-        assert.equal(isValidHexAddr(addrPriv.hexAddr), 1);
+        assert.equal(isHexAddr(addrPriv.hexAddr), 1);
     });
 
     it('newHexAddr addrPrivContract', function () {
-        assert.equal(isValidHexAddr(addrPrivContract.hexAddr), 2);
+        assert.equal(isHexAddr(addrPrivContract.hexAddr), 2);
     });
 
     it('Old user address: case 1', function () {
-        assert.equal(isValidHexAddr('vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587eb692d689'), 1);
+        assert.equal(isHexAddr('vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587eb692d689'), 1);
     });
 
     it('Old user address: case 2', function () {
-        assert.equal(isValidHexAddr('vite_c18cadb085fc4e291469106e5a3f197aef87f96cd297eb6b46'), 1);
+        assert.equal(isHexAddr('vite_c18cadb085fc4e291469106e5a3f197aef87f96cd297eb6b46'), 1);
     });
 
     it('New user address', function () {
-        assert.equal(isValidHexAddr('vite_010203040506070809080706050403020102030412227c8b71'), 1);
+        assert.equal(isHexAddr('vite_010203040506070809080706050403020102030412227c8b71'), 1);
     });
 
     it('New contract address', function () {
-        assert.equal(isValidHexAddr('vite_0102030405060708090807060504030201020304eddd83748e'), 2);
+        assert.equal(isHexAddr('vite_0102030405060708090807060504030201020304eddd83748e'), 2);
     });
 });
 
@@ -71,7 +71,6 @@ describe('getAddrFromHexAddr', function () {
         const addr = getAddrFromHexAddr('vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587eb692d689');
         assert.equal(addr, '69f3bdb5cdcfa145ae6cc42593a89088ff3dac5800');
     });
-
 
     it('user address 2', function () {
         const addr = getAddrFromHexAddr('vite_010203040506070809080706050403020102030412227c8b71');
@@ -95,8 +94,8 @@ describe('getHexAddrFromAddr', function () {
     });
 });
 
-describe('newHexAddrFromPub', function () {
+describe('newHexAddrFromPubKey', function () {
     it('newHexAddr', function () {
-        assert.equal(newHexAddrFromPub(addr.pubKey), addr.hexAddr);
+        assert.equal(newHexAddrFromPubKey(addr.pubKey), addr.hexAddr);
     });
 });

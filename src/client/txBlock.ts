@@ -7,7 +7,7 @@ import {
     DexFundUserDeposit_Abi, DexFundUserWithdraw_Abi, DexTradeCancelOrder_Abi, DexFundNewOrder_Abi, DexFundNewMarket_Abi,
     DexFundSetOwner_Abi, DexFundConfigMineMarket_Abi, DexFundPledgeForVx_Abi, DexFundPledgeForVip_Abi
 } from '~@vite/vitejs-constant';
-import { checkParams, validNodeName, blake2bHex } from '~@vite/vitejs-utils';
+import { checkParams, blake2bHex } from '~@vite/vitejs-utils';
 import { getAccountBlock, getSendTxBlock, getReceiveTxBlock } from '~@vite/vitejs-accountblock';
 import { formatAccountBlock, validReqAccountBlock, getCreateContractData } from '~@vite/vitejs-accountblock/builtin';
 import { encodeFunctionCall } from '~@vite/vitejs-abi';
@@ -187,10 +187,7 @@ export default class Tx {
     }
 
     async SBPreg({ accountAddress, nodeName, toAddress, amount, tokenId = Vite_TokenId, height, prevHash }: SBPregBlock, requestType = 'async') {
-        const err = checkParams({ toAddress, nodeName, tokenId, amount }, [ 'toAddress', 'nodeName', 'tokenId', 'amount' ], [{
-            name: 'nodeName',
-            func: validNodeName
-        }]);
+        const err = checkParams({ toAddress, nodeName, tokenId, amount }, [ 'toAddress', 'nodeName', 'tokenId', 'amount' ]);
         if (err) {
             return Promise.reject(err);
         }
@@ -208,10 +205,7 @@ export default class Tx {
     }
 
     async updateReg({ accountAddress, nodeName, toAddress, tokenId = Vite_TokenId, height, prevHash }: block8, requestType = 'async') {
-        const err = checkParams({ toAddress, nodeName, tokenId }, [ 'toAddress', 'nodeName', 'tokenId' ], [{
-            name: 'nodeName',
-            func: validNodeName
-        }]);
+        const err = checkParams({ toAddress, nodeName, tokenId }, [ 'toAddress', 'nodeName', 'tokenId' ]);
         if (err) {
             return Promise.reject(err);
         }
@@ -228,10 +222,7 @@ export default class Tx {
     }
 
     async revokeReg({ accountAddress, nodeName, tokenId = Vite_TokenId, height, prevHash }: block7, requestType = 'async') {
-        const err = checkParams({ nodeName, tokenId }, [ 'nodeName', 'tokenId' ], [{
-            name: 'nodeName',
-            func: validNodeName
-        }]);
+        const err = checkParams({ nodeName, tokenId }, [ 'nodeName', 'tokenId' ]);
         if (err) {
             return Promise.reject(err);
         }
@@ -248,10 +239,7 @@ export default class Tx {
     }
 
     async retrieveReward({ accountAddress, nodeName, toAddress, tokenId = Vite_TokenId, height, prevHash }: block8, requestType = 'async') {
-        const err = checkParams({ toAddress, nodeName, tokenId }, [ 'toAddress', 'nodeName', 'tokenId' ], [{
-            name: 'nodeName',
-            func: validNodeName
-        }]);
+        const err = checkParams({ toAddress, nodeName, tokenId }, [ 'toAddress', 'nodeName', 'tokenId' ]);
         if (err) {
             return Promise.reject(err);
         }
@@ -268,10 +256,7 @@ export default class Tx {
     }
 
     async voting({ accountAddress, nodeName, tokenId = Vite_TokenId, height, prevHash }: block7, requestType = 'async') {
-        const err = checkParams({ nodeName, tokenId }, [ 'nodeName', 'tokenId' ], [{
-            name: 'nodeName',
-            func: validNodeName
-        }]);
+        const err = checkParams({ nodeName, tokenId }, [ 'nodeName', 'tokenId' ]);
         if (err) {
             return Promise.reject(err);
         }

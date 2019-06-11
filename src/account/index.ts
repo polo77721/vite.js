@@ -288,7 +288,7 @@ class AccountClass extends addrAccount {
                 return { lifeCycle, checkPowResult, accountBlock };
             }
 
-            accountBlock = await this._client.builtinTxBlock.pow(accountBlock, checkPowResult.difficulty);
+            accountBlock = await this._client.getBlock.pow(accountBlock, checkPowResult.difficulty);
             lifeCycle = 'powDone';
 
             return _beforeSignTx();
@@ -362,7 +362,7 @@ class AccountClass extends addrAccount {
     }
 
     private _setTxMethod() {
-        for (const key in this._client.builtinTxBlock) {
+        for (const key in this._client.getBlock) {
             if (key === '_client' || key.endsWith('Block')) {
                 continue;
             }

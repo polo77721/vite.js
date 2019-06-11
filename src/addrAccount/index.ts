@@ -13,7 +13,7 @@ class AddrAccountClass {
     constructor({ address, client }: {
         address: Address; client: client;
     } = { address: null, client: null }) {
-        if (!privToAddr.isValidHexAddr(address)) {
+        if (!privToAddr.isHexAddr(address)) {
             throw new Error(`Illegal address ${ address }.`);
         }
 
@@ -98,7 +98,7 @@ class AddrAccountClass {
     }
 
     private _setMethodBlock() {
-        for (const key in this._client.builtinTxBlock) {
+        for (const key in this._client.getBlock) {
             if (key === '_client') {
                 continue;
             }
@@ -106,7 +106,7 @@ class AddrAccountClass {
             this.getBlock[key] = (block, requestType?) => {
                 block = block || {};
                 block.accountAddress = this.address;
-                return this._client.builtinTxBlock[key](block, requestType);
+                return this._client.getBlock[key](block, requestType);
             };
         }
     }

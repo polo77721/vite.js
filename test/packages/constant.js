@@ -40,7 +40,7 @@ const required = [
 
 const enumType = {
     'BlockType': 7 * 2,
-    'BuiltinTxType': 26 * 2,
+    'TxType': 26 * 2,
     'LangList': 8
 };
 

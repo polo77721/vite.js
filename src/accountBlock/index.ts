@@ -69,7 +69,7 @@ export function getReceiveTxBlock({ accountAddress, fromBlockHash, height, prevH
     });
 }
 
-export function getBuiltinTxType({ toAddress, data, blockType }) {
+export function getTxType({ toAddress, data, blockType }) {
     blockType = Number(blockType);
 
     const defaultType = BlockType[blockType];

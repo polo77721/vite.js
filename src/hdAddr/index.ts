@@ -1,6 +1,6 @@
 const bip39 = require('bip39');
 const hd = require('@sisi/ed25519-blake2b-hd-key');
-import { newHexAddr, isValidHexAddr as _isValidHexAddr, getAddrFromHexAddr as _getAddrFromHexAddr } from '~@vite/vitejs-privtoaddr';
+import { newHexAddr, isHexAddr as _isHexAddr, getAddrFromHexAddr as _getAddrFromHexAddr } from '~@vite/vitejs-privtoaddr';
 import { paramsFormat } from '~@vite/vitejs-error';
 import { checkParams, bytesToHex, blake2b } from '~@vite/vitejs-utils';
 
@@ -105,7 +105,7 @@ export const getId = _getId;
 
 export const getAddrFromHexAddr = _getAddrFromHexAddr;
 
-export const isValidHexAddr = _isValidHexAddr;
+export const isHexAddr = _isHexAddr;
 
 
 function getAddrFromPath(path: string, seed: string, isContract?: boolean): AddrObj {

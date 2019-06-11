@@ -2,7 +2,7 @@ const assert = require('assert');
 
 import {
     hexToBytes, utf8ToBytes, bytesToHex, getBytesSize,
-    getRawTokenId, validNodeName, validInteger, getTokenIdFromRaw, uriStringify,
+    getRawTokenId, isNodeName, isInteger, getTokenIdFromRaw, uriStringify,
     ed25519
 } from '../../src/utils';
 
@@ -58,19 +58,19 @@ describe('tools', function () {
     it('getTokenIdFromRaw', function () {
         assert.equal('tti_5649544520544f4b454e6e40', getTokenIdFromRaw('5649544520544f4b454e'));
     });
-    it('validNodeName', function () {
-        assert.equal(true, validNodeName('2323_sdsd'));
-        assert.equal(true, validNodeName('2323_sd sd'));
-        assert.equal(false, validNodeName(' 2323_sdsd '));
-        assert.equal(false, validNodeName('2323_sd  sd'));
-        assert.equal(false, validNodeName('232涉及到法律是否啊3_sd  sd'));
+    it('isNodeName', function () {
+        assert.equal(true, isNodeName('2323_sdsd'));
+        assert.equal(true, isNodeName('2323_sd sd'));
+        assert.equal(false, isNodeName(' 2323_sdsd '));
+        assert.equal(false, isNodeName('2323_sd  sd'));
+        assert.equal(false, isNodeName('232涉及到法律是否啊3_sd  sd'));
     });
-    it('validInteger', function () {
-        assert.equal(false, validInteger('232   2323'));
-        assert.equal(true, validInteger('2323'));
-        assert.equal(false, validInteger('0000'));
-        assert.equal(true, validInteger('0'));
-        assert.equal(false, validInteger('0.23829'));
+    it('isInteger', function () {
+        assert.equal(false, isInteger('232   2323'));
+        assert.equal(true, isInteger('2323'));
+        assert.equal(false, isInteger('0000'));
+        assert.equal(true, isInteger('0'));
+        assert.equal(false, isInteger('0.23829'));
     });
 });
 

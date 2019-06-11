@@ -24,7 +24,7 @@ export function newHexAddr(priv?: Hex | Buffer, isContract?: boolean): AddrObj {
     };
 }
 
-export function newHexAddrFromPub(pubkey: Hex | Buffer, isContract?: boolean): string {
+export function newHexAddrFromPubKey(pubkey: Hex | Buffer, isContract?: boolean): string {
     const err = checkParams({ pubkey }, ['pubkey']);
     if (err) {
         throw new Error(err.message);
@@ -67,7 +67,7 @@ export function getHexAddrFromAddr(realAddr: Hex): string {
     return getHexAddr(realAddrBuf, checkSum);
 }
 
-export function isValidHexAddr(hexAddr: Hex): ADDR_TYPE {
+export function isHexAddr(hexAddr: Hex): ADDR_TYPE {
     if (!isValidHex(hexAddr)) {
         return ADDR_TYPE.Illegal;
     }

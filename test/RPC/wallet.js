@@ -1,7 +1,7 @@
 import HTTP_RPC from '../../src/HTTP';
 import Client from '../../src/client/index';
 import HdAccount from '../../src/hdAccount/index';
-import { Vite_TokenId, BuiltinTxType } from '../../src/constant/index';
+import { Vite_TokenId, TxType } from '../../src/constant/index';
 import config from '../config';
 import GetViteFromWorld from './getViteFromWorld';
 
@@ -279,7 +279,7 @@ async function CheckMyTxList() {
     // console.log('[LOG] CheckMyTxList', data, '\n');
 
     data.list.forEach((ele, i) => {
-        console.log(`[LOG] CheckMyTxList builtinTxtype ${ i }: ${ BuiltinTxType[ele.txType] } \n`);
+        console.log(`[LOG] CheckMyTxList txtype ${ i }: ${ TxType[ele.txType] } \n`);
     });
     return data;
 }
